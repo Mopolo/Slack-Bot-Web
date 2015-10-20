@@ -18,6 +18,107 @@ $(function() {
         }
     };
 
+    var storage = {
+        set: function(key, value) {
+            localStorage.setItem(key, value);
+        },
+        get: function(key) {
+            return localStorage.getItem(key);
+        },
+        remove: function(key) {
+            localStorage.removeItem(key);
+        },
+        clear: function() {
+            localStorage.clear();
+        },
+        bind: function(elm, key) {
+            var self = this;
+
+            elm.val(self.get(key));
+
+            elm.change(function() {
+                self.set(key, elm.val());
+            })
+        }
+    };
+
+    function refreshBots() {
+        var bots = JSON.parse(storage.get('bots')) || [];
+
+        if (bots.length > 0) {
+            var list = '';
+
+            for (var i = 0; i < bots.length; i++) {
+                list += '<li class="load-bot" data-index="' + i + '"><a href="javascript:void(0);">';
+
+                if (bots[i].image && bots[i].image.length) {
+                    if (bots[i].image.slice(0, 1) == ':' && bots[i].image.slice(-1) == ':') {
+                        list += '<b>' + bots[i].image + '</b> ';
+                    } else {
+                        list += '<img src="' + bots[i].image + '" /> ';
+                    }
+                }
+
+                list += bots[i].name;
+                list += '</a></li>';
+            }
+
+            $('#bots').html(list);
+        }
+    }
+
+    storage.bind($('#url'), 'url');
+    storage.bind($('#target'), 'target');
+    storage.bind($('#name'), 'name');
+    storage.bind($('#image'), 'image');
+    refreshBots();
+
+    $('#save-bot').click(function() {
+        var bot = {
+            name: $('#name').val(),
+            image: $('#image').val()
+        };
+
+        if (!bot.name.length || !bot.image.length) {
+            return;
+        }
+
+        var bots = JSON.parse(storage.get('bots')) || [];
+
+        bots.push(bot);
+
+        storage.set('bots', JSON.stringify(bots));
+
+        refreshBots();
+    });
+
+    $('.load-bot').click(function() {
+        var bots = JSON.parse(storage.get('bots')) || [];
+
+        var bot = bots[$(this).data('index')];
+
+        $('#name').val(bot.name);
+        $('#image').val(bot.image);
+
+        storage.set('name', $('#name').val());
+        storage.set('image', $('#image').val());
+    });
+
+    $('#clear-bots-cache').click(function() {
+        storage.remove('bots');
+        $('#bots').html('');
+    });
+
+    $('#clear-cache').click(function() {
+        storage.clear();
+        $('#bots').html('');
+        $('#url').val('');
+        $('#target').val('');
+        $('#name').val('');
+        $('#image').val('');
+        $('#message').val('');
+    });
+
     $('#send').click(function() {
         var url = $('#url').val();
 
