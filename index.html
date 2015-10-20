@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Slack Bot Manager</title>
+
+    <!-- Bootstrap -->
+    <link href="/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="https://github.com/Mopolo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <h1>Slack Bot</h1>
+
+                <p>Send messages as a bot on <a href="https://slack.com/">Slack</a> with this simple form</p>
+
+                <div class="form-group">
+                    <label for="url">Incoming Webhook url</label>
+                    <input type="text" class="form-control" id="url" placeholder="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX" />
+                </div>
+
+                <div class="form-group">
+                    <label for="target">#channel or @user</label>
+                    <input type="text" class="form-control" id="target" />
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Bot Name</label>
+                    <input type="text" class="form-control" id="name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Bot Image (Direct url to a file or :emoji:)</label>
+                    <input type="text" class="form-control" id="image" />
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                </div>
+
+                <button id="send" class="btn btn-success">Send</button>
+                <span id="sending" style="display: none;">Sending...</span>
+                <span id="result"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="slackbot.js" type="text/javascript"></script>
+</body>
+</html>
