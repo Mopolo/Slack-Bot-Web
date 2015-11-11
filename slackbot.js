@@ -67,11 +67,25 @@ $(function() {
         }
     }
 
+    function refreshPageTitle() {
+        var botName = $('#name').val();
+        document.title = 'Slack Bot Manager';
+
+        if (botName.length) {
+            document.title = botName + ' - ' + document.title;
+        }
+    }
+
     storage.bind($('#url'), 'url');
     storage.bind($('#target'), 'target');
     storage.bind($('#name'), 'name');
     storage.bind($('#image'), 'image');
     refreshBots();
+    refreshPageTitle();
+
+    $('#name').change(function() {
+        refreshPageTitle();
+    });
 
     $('#save-bot').click(function() {
         var bot = {
