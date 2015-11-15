@@ -87,6 +87,19 @@ $(function() {
         refreshPageTitle();
     });
 
+    $('#url').popover({
+        title: 'Where can I find this?',
+        content: [
+            'First, create an <a href="https://my.slack.com/services/new/incoming-webhook/">incoming webhook</a>',
+            'The channel you choose doesn\'t matter since you override it here.',
+            'Once the hook is created you\'ll have access to the url in the <b>Integration Settings</b> section.',
+            'Complete help to create an incoming webhook can be found here: <a href="https://api.slack.com/incoming-webhooks">https://api.slack.com/incoming-webhooks</a>'
+        ].join('<br /><br />'),
+        placement: 'bottom',
+        trigger: 'focus',
+        html: true
+    });
+
     $('#save-bot').click(function() {
         var bot = {
             name: $('#name').val(),
